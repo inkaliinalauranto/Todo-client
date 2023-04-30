@@ -1,11 +1,12 @@
 import { useState } from "react"
 import "./CreateTodo.css"
+import { createTodo } from "../services/http"
+import { Overlay } from "./Overlay.jsx"
 
-export function CreateTodo({setShowCreate}) {
+export function CreateTodo({ setShowCreate }) {
 
-    const [title, setTitle] = useState("")
-    const [description, SetDescription] = useState("")
-
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
 
     const close = ()=> {
         setShowCreate(false)
@@ -14,7 +15,7 @@ export function CreateTodo({setShowCreate}) {
     const onSave = ()=>{
 
         if(!title) {
-            return
+            return;
         }
 
         const newTodo = {
@@ -22,36 +23,35 @@ export function CreateTodo({setShowCreate}) {
             description
         }
 
-        console.log(newTodo)
+        createTodo(newTodo).then(()=>{
+            close()
+        })
+    };
 
-
-
-    }
-
-    return <div className="overlay">
-
-        <div className="create-todo">
-
-            <div className="create-header">
-
-                <p>Luo uusi</p>
-                <p onClick={close}>X</p>
-
-            </div>
-
+    return (
+        <Overlay close={close}>
             <label htmlFor="title">Otsikko</label>
-            <input value={title} onInput={e => setTitle(e.target.value)} id="title" type="text"></input>
+            <input 
+                value={title} 
+                onInput={e => setTitle(e.target.value)} 
+                id="title" 
+                type="text"
+            />
             
             <label htmlFor="description">Kuvaus</label>
-            <textarea value={description} onInput={e => SetDescription(e.target.value)} id="description" name="" cols="30" rows="5"></textarea>
+            <textarea 
+                value={description} 
+                onInput={e => setDescription(e.target.value)} 
+                id="description" 
+                name="" 
+                cols="30" 
+                rows="5"
+            />
 
-            <button onClick={onSave()}>Tallena</button>
-            <button onClick={close}>Peruuta</button>
-
-
-        </div>
-
-    </div>
-
-    // yllä virhe voi olla,e ttä onSaven jälkeen on sulut
+            <button onClick={onSave}>Tallenna</button>
+        </Overlay>
+    );
 }
+
+    // hox! Ei saa olla sulkuja, kun viitataan muuttujaan, joka pitää sisällään nuolifunktion
+    // closessa kuitenkin esimerkin mukaan pitää olla sulut

@@ -1,15 +1,30 @@
 import { useState } from "react"
+import "./TodoItem.css"
+import { toggleDoneWithId } from "../services/http";
 
 
-export function TodoItem({todo}) {
-
-    const [done, setDone] = useState(todo.done)
+export function TodoItem({ todo, setSelectedId }) {
+    const [done, setDone] = useState(todo.done);
   
     const toggle = ()=>{
-      setDone(!done)
-    }
+      const NewDoneValue = !done;
+
+      setDone(NewDoneValue);
+      toggleDoneWithId(todo.id, NewDoneValue).then((data)=>{
+        console.log(data);
+      })
+    };
   
-    return <div onClick={toggle}>{todo.title}, {todo.id}, {done.toString()}</div>
-      // nyt todoItems ei sisällä javascriptiä vaan yksittäisiä html-elementtejä, joka alla palautetaan TodoList-kommponentista
-      // react taustalla katsoo, että done on boolean arvo, ja arvio sen olemattomaksi, minkä vuoksi ei sitä näytä
+    return (
+      <div onClick={()=> setSelectedId(todo.id)} className='todo-item'>
+          <p>{todo.title}</p>
+          <input 
+            checked={done} 
+            value={done} 
+            onChange={toggle} 
+            onClick={(e) => e.stopPropagation()}
+            type="checkbox" 
+          />
+        </div>
+        );
   }

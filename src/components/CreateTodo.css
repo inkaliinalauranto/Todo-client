@@ -3,21 +3,24 @@
     top: 0px;
     left: 0px;
     width: 100%;
-    height: 100vh;
-    background-color: rgba(169, 169, 169, 0.388);
-    display: flex;
+    height: 100vh; /*vh: view height eli vie 100 % näkyvillä olevasta ruudun korkeudesta*/
+    background-color: rgba(169, 169, 169, 0.404);
+    display: flex; 
     justify-content: center;
     align-items: center;
 }
+
+/*flex:n (display) suunta on rivi, jolloin justify-content: center vie sisällön rivisuunnassa 
+keskelle ja align-items vie sisällön: center vie sarakesuunnassa keskelle.*/
 
 .create-todo {
     width: 400px;
     background-color: rgb(255, 255, 255);
     border: solid 1px black;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /*oletuksena flex-direction on rivi, nyt column --> järjestää nyt elementit pystysuunnan mukaan*/
     padding: 6px;
-    gap: 6px;
+    gap: 6px; /*flex-itemille voidaan asetaa gap*/
 }
 
 .create-header {
