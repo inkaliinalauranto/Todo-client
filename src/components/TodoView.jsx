@@ -1,10 +1,9 @@
 import { useState } from "react"
 import "./CreateTodo.css"
-import { removeTodoById, updateTodoWithId } from "../services/http"
+import { removeTodoById, updateTodoWithId } from "../services/todos"
 import { Overlay } from "./Overlay"
 
 export function TodoView({ setShowCreate, initialTodo }) {
-
     const [title, setTitle] = useState(initialTodo.title);
     const [description, setDescription] = useState(initialTodo.description);
     const [isEditing, setIsEditing] = useState(false)
@@ -15,10 +14,9 @@ export function TodoView({ setShowCreate, initialTodo }) {
     }
 
     const onSave = ()=>{
-
         if(!title) return
 
-        const editedTodo = {...initialTodo, title, description};
+        const editedTodo = { ...initialTodo, title, description };
 
         updateTodoWithId(initialTodo.id, editedTodo).then(()=>{
             close();
@@ -38,7 +36,7 @@ export function TodoView({ setShowCreate, initialTodo }) {
                 <label htmlFor="title">Otsikko</label>
                 <input 
                     value={title} 
-                    onInput={e => setTitle(e.target.value)} 
+                    onInput={(e) => setTitle(e.target.value)} 
                     id="title" 
                     type="text"
                 />
@@ -46,7 +44,7 @@ export function TodoView({ setShowCreate, initialTodo }) {
                 <label htmlFor="description">Kuvaus</label>
                 <textarea 
                     value={description} 
-                    onInput={e => setDescription(e.target.value)} 
+                    onInput={(e) => setDescription(e.target.value)} 
                     id="description" 
                     name="" 
                     cols="30" 

@@ -1,10 +1,9 @@
-import { useState } from "react"
-import "./CreateTodo.css"
-import { createTodo } from "../services/http"
-import { Overlay } from "./Overlay.jsx"
+import { useState } from "react";
+import "./CreateTodo.css";
+import { createTodo } from "../services/todos.js";
+import { Overlay } from "./Overlay.jsx";
 
 export function CreateTodo({ setShowCreate }) {
-
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
@@ -13,14 +12,13 @@ export function CreateTodo({ setShowCreate }) {
     }
 
     const onSave = ()=>{
-
         if(!title) {
             return;
         }
 
         const newTodo = {
             title,
-            description
+            description,
         }
 
         createTodo(newTodo).then(()=>{
@@ -41,7 +39,7 @@ export function CreateTodo({ setShowCreate }) {
             <label htmlFor="description">Kuvaus</label>
             <textarea 
                 value={description} 
-                onInput={e => setDescription(e.target.value)} 
+                onInput={(e) => setDescription(e.target.value)} 
                 id="description" 
                 name="" 
                 cols="30" 

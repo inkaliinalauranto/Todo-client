@@ -4,7 +4,7 @@ import { TodoButtons } from "./components/TodoButtons"
 import { CreateButton } from "./components/CreateButton"
 import { CreateTodo } from "./components/CreateTodo"
 import { TodoList } from "./components/TodoList"
-import { getTodoById, getTodos } from "./services/http"
+import { getTodoById, getTodos } from "./services/todos"
 import { TodoView } from "./components/TodoView"
 
 
@@ -37,11 +37,9 @@ function App() {
     getTodoById(id).then((todo)=>{
       setSelectedTodo(todo)
     })
-
   }
   
   useEffect(()=>{
-
     const params = {}
 
     if(activeKey !== "ALL") {
@@ -50,9 +48,8 @@ function App() {
 
     getTodos(params).then((todos)=>{
       setTodos(todos)
-    })
-
-  }, [showCreate, activeKey, selectedTodo])
+    });
+  }, [showCreate, activeKey, selectedTodo]);
 
   return (
     <>
